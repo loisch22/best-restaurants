@@ -44,5 +44,20 @@ namespace BestRestaurant.Tests
       //Assert
       CollectionAssert.AreEqual(expected, actual);
     }
+    [TestMethod]
+    public void GetRestaurantsForCuisine_ReturnsAllRestaurantsForThatCuisine_RestaurantList()
+    {
+      //Arrange
+      Restaurant newRestaurant1 = new Restaurant("Chipotle", "Seattle", 1);
+      newRestaurant1.Save();
+      Restaurant newRestaurant2 = new Restaurant("Qdoba", "Seattle", 2);
+      newRestaurant2.Save();
+
+      List<Restaurant> expected = new List<Restaurant>{newRestaurant1};
+      //Act
+      List<Restaurant> actual = Restaurant.GetRestaurantsForCuisine(1);
+      //Assert
+      CollectionAssert.AreEqual(expected, actual);
+    }
   }
 }
