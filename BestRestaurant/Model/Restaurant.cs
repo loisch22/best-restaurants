@@ -166,6 +166,7 @@ namespace BestRestaurant.Models
       return newRestaurant;
     }
 
+
     public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection() as MySqlConnection;
