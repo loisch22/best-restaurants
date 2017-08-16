@@ -10,5 +10,7 @@ namespace BestRestaurant.Models
       MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
       return conn;
     }
+
+    
   }
 }

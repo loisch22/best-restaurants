@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 using System;
 
 namespace BestRestaurant.Models
@@ -23,9 +24,52 @@ namespace BestRestaurant.Models
       return _cuisineName;
     }
 
+    public override bool Equals(System.Object otherCuisine)
+    {
+      if (!(otherCuisine is Cuisine))
+      {
+        return false;
+      }
+      else
+      {
+        Cuisine newCuisine = (Cuisine) otherCuisine;
+        bool idEquality = (this.GetId() == newCuisine.GetId());
+        bool nameEquality = (this.GetCuisineName() == newCuisine.GetCuisineName());
+        return (idEquality && nameEquality);
+      }
+    }
+
+    public override int GetHashCode()
+    {
+      return this.GetCuisineName().GetHashCode();
+    }
+
+    public static void DeleteAll()
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"TRUNCATE TABLE cuisines;"; //TRUNCATE = deletes and resets ID
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+
     public void Save()
     {
-      //Save method after lunch
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO cuisines (cuisine_name) VALUES (@cuisineName);";
+
+      MySqlParameter cuisineNameParameter = new MySqlParameter();
+      cuisineNameParameter.ParameterName = "@cuisineName";
+      cuisineNameParameter.Value = this._cuisineName;
+      cmd.Parameters.Add(cuisineNameParameter);
+
+      cmd.ExecuteNonQuery();
+      _id = (int) cmd.LastInsertedId;
+      conn.Close();
     }
 
     public static List<Cuisine> GetAllCuisines()
@@ -47,9 +91,9 @@ namespace BestRestaurant.Models
         allCuisine.Add(newCuisine);
       }
 
+      conn.Close();
+
       return allCuisine;
     }
-
-
   }
 }
