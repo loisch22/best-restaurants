@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System;
 
@@ -8,13 +9,13 @@ namespace BestRestaurant.Tests
   {
     public void Dispose()
     {
-      Restaurant.DeleteAll();
+      // Restaurant.DeleteAll();
     }
-    public RestaurantTests()
+    public RestaurantTest()
     {
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=best_restauarants_test;";
     }
 
-    
+
   }
 }
