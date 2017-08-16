@@ -139,6 +139,33 @@ namespace BestRestaurant.Models
       return restaurants;
     }
 
+    public static Restaurant FindRestaurant(string searchName)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM restaurants WHERE restaurant_name = @restaurant_name;";
+
+      MySqlParameter restaurantNameParameter = new MySqlParameter();
+      restaurantNameParameter.ParameterName = "@restaurant_name";
+      restaurantNameParameter.Value = searchName;
+      cmd.Parameters.Add(restaurantNameParameter);
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      Restaurant newRestaurant = new Restaurant("", "", 0);
+
+      while (rdr.Read())
+      {
+        int restaurantId = rdr.GetInt32(0);
+        string restaurantName = rdr.GetString(1);
+        string location = rdr.GetString(2);
+        int cuisineId = rdr.GetInt32(3);
+        newRestaurant = new Restaurant(restaurantName, location, cuisineId, restaurantId);
+      }
+      conn.Close();
+      return newRestaurant;
+    }
+
     public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection() as MySqlConnection;

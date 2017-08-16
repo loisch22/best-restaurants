@@ -53,11 +53,12 @@ namespace BestRestaurant.Tests
       Restaurant newRestaurant2 = new Restaurant("Qdoba", "Seattle", 2);
       newRestaurant2.Save();
 
-      List<Restaurant> expected = new List<Restaurant>{newRestaurant1};
+      Restaurant expected = newRestaurant1;
       //Act
-      List<Restaurant> actual = Restaurant.GetRestaurantsForCuisine(1);
+      Restaurant actual = Restaurant.FindRestaurant("Chipotle");
+      Console.WriteLine("ACTUAL ID {0} ACTUAL NAME: {1} ACTUAL LOCATION {2} ACTUAL CUISINE ID {3}", actual.GetId(), actual.GetRestaurantName(), actual.GetLocation(), actual.GetCuisineId());
       //Assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.AreEqual(expected, actual);
     }
   }
 }
