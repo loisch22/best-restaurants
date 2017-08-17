@@ -125,5 +125,19 @@ namespace BestRestaurant.Tests
 
       Assert.AreEqual(expected, actual);
     }
+    [TestMethod]
+    public void FindRestaurant_GetsRestaurant_Restaurant()
+    {
+      //Arrange
+      Restaurant newRestaurant = new Restaurant("Chipotle", "Seattle", 1, 1);
+      newRestaurant.Save();
+
+      Restaurant expected = newRestaurant;
+      //Act
+      Restaurant actual = Restaurant.FindRestaurant(newRestaurant.GetRestaurantName());
+    
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
   }
 }
