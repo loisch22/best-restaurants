@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Best Restaurants</title>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <!-- @* <script src="js/scripts.js"></script> *@ -->
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-bestRestaurant" href="/">Best Restaurant</a>
+          <button type="button" class="btn btn-default navbar-btn">View Cuisines</button>
+          <button type="button" class="btn btn-default navbar-btn">View Restaurants</button>
+          <button type="button" class="btn btn-default navbar-btn">Add Cuisine</button>
+          <button type="button" class="btn btn-default navbar-btn">Add Restaurant</button>
+        </div>
+      </div>
+    </nav>
+
+    <header>
+      @Html.Partial("_Header")
+    </header>
+    @* <nav  id="navBar">
+    <div class="nav nav-pills">
+      <a href="#"><span class="badge"><img src="/img/wordCounter1.jpeg" id="badgeImage" alt="wordCounter1 image"> @RepeatCounter.GetWordcount()</span></a>
+    </div>
+
+    <div>
+      <p>The word count is the number of words in a document or passage of text. Word counting may be needed when a text is required to stay within certain numbers of words. This may particularly be the case in academia, legal proceedings, journalism and advertising. Word count is commonly used by translators to determine the price for the translation job. Word counts may also be used to calculate measures of readability and to measure typing and reading speeds (usually in words per minute). When converting character counts to words, a measure of 5 or 6 characters to a word is generally used.</p>
+      <p>Source: <a href="https://en.wikipedia.org/wiki/Word_count">Wikepedia</a></p>
+    </div>
+</nav> *@
+    <div class="container">
+
+      <article>
+        @RenderBody()
+      </article>
+    </div>
+
+    <footer>
+      @Html.Partial("_Footer")
+    </footer>
+  </body>
+</html>
