@@ -71,5 +71,19 @@ namespace BestRestaurant.Tests
 
       Assert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public void UpdateName_UpdateNameOfCuisine_Void()
+    {
+      Cuisine newCuisine = new Cuisine("mexican", 1);
+      newCuisine.Save();
+      Cuisine.UpdateName("thai", 1);
+
+      List<Cuisine> expected = new List<Cuisine> {"thai"};
+      string actual = Cuisine.GetCuisineName();
+
+      CollectionAssert.AreEqual(expected, actual);
+    }
+
   }
 }
