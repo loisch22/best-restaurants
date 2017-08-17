@@ -116,5 +116,28 @@ namespace BestRestaurant.Models
 
       return allCuisine;
     }
+
+    public void UpdateCuisine(string cuisineName)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE cuisines SET cuisine_name = @cuisine_name WHERE id = @id;";
+
+
+      MySqlParameter cuisineNameParameter = new MySqlParameter();
+      cuisineNameParameter.ParameterName = "@cuisine_name";
+      cuisineNameParameter.Value = cuisineName;
+      cmd.Parameters.Add(cuisineNameParameter);
+
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@id";
+      cuisineIdParameter.Value = this._id;
+      cmd.Parameters.Add(cuisineIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
   }
 }
