@@ -97,7 +97,6 @@ namespace BestRestaurant.Tests
       newRestaurant.Save();
       Restaurant newRestaurant2 = new Restaurant("Chipotle", "Seattle", 1, 1);
       newRestaurant2.Save();
-      Console.WriteLine("NUMBER OF RESTRANTS OBJECTS: " + Restaurant.GetAllRestaurants().Count);
 
       int restaurantId = newRestaurant.GetId();
       string restaurantName = newRestaurant.GetRestaurantName();
@@ -107,6 +106,23 @@ namespace BestRestaurant.Tests
       //Act
       bool actual = Restaurant.GetAllRestaurants().Contains(newRestaurant);
       //Assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void UpdateRestaurant_UpdatesRestaurantDetails_Void()
+    {
+      Restaurant newRestaurant = new Restaurant("Chipotle", "Seattle", 1, 1);
+      newRestaurant.Save();
+
+      newRestaurant.UpdateRestaurant("Qdoba", "Northgate", 2);
+
+      Restaurant expected = new Restaurant("Qdoba", "Northgate", 2, 1);
+      Console.WriteLine(expected.GetRestaurantName() + " " + expected.GetLocation() + " " + expected.GetCuisineId() + " " + expected.GetId());
+
+      Restaurant actual = Restaurant.GetAllRestaurants()[0];
+      Console.WriteLine(actual.GetRestaurantName() + " " + actual.GetLocation() + " " + actual.GetCuisineId() + " " + actual.GetId());
+
       Assert.AreEqual(expected, actual);
     }
   }

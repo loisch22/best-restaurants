@@ -167,6 +167,39 @@ namespace BestRestaurant.Models
       return newRestaurant;
     }
 
+    public void UpdateRestaurant(string restaurantName, string location, int cuisineId)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE restaurants SET restaurant_name = @restaurant_name, location = @location, cuisine_id = @cuisineId WHERE id = @id;";
+
+
+      MySqlParameter restaurantNameParameter = new MySqlParameter();
+      restaurantNameParameter.ParameterName = "@restaurant_name";
+      restaurantNameParameter.Value = restaurantName;
+      cmd.Parameters.Add(restaurantNameParameter);
+
+      MySqlParameter restaurantLocationParameter = new MySqlParameter();
+      restaurantLocationParameter.ParameterName = "@location";
+      restaurantLocationParameter.Value = location;
+      cmd.Parameters.Add(restaurantLocationParameter);
+
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@cuisineId";
+      cuisineIdParameter.Value = cuisineId;
+      cmd.Parameters.Add(cuisineIdParameter);
+
+      MySqlParameter restaurantIdParameter = new MySqlParameter();
+      restaurantIdParameter.ParameterName = "@id";
+      restaurantIdParameter.Value = this._id;
+      cmd.Parameters.Add(restaurantIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
+
     public static void DeleteCuisineRestaurants(int cuisineId)
     {
       MySqlConnection conn = DB.Connection() as MySqlConnection;
