@@ -99,5 +99,23 @@ namespace BestRestaurant.Tests
 
       Assert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public void FindCuisine_GetsCuisineAndAssociatedRestaurants_Cuisine()
+    {
+      //Arrange
+      Cuisine newCuisine = new Cuisine("mexican", 1);
+      newCuisine.Save();
+
+      Cuisine expected = newCuisine;
+      Console.WriteLine("EXPECTED ========= {0} {1} ", expected.GetId(), expected.GetCuisineName());
+
+      //Act
+      Cuisine actual = Cuisine.FindCuisine(newCuisine.GetCuisineName());
+      Console.WriteLine("ACTUAL ========= {0} {1} ", actual.GetId(), actual.GetCuisineName());
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
+
   }
 }

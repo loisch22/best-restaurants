@@ -118,10 +118,8 @@ namespace BestRestaurant.Tests
       newRestaurant.UpdateRestaurant("Qdoba", "Northgate", 2);
 
       Restaurant expected = new Restaurant("Qdoba", "Northgate", 2, 1);
-      Console.WriteLine(expected.GetRestaurantName() + " " + expected.GetLocation() + " " + expected.GetCuisineId() + " " + expected.GetId());
 
       Restaurant actual = Restaurant.GetAllRestaurants()[0];
-      Console.WriteLine(actual.GetRestaurantName() + " " + actual.GetLocation() + " " + actual.GetCuisineId() + " " + actual.GetId());
 
       Assert.AreEqual(expected, actual);
     }
@@ -135,9 +133,11 @@ namespace BestRestaurant.Tests
       Restaurant expected = newRestaurant;
       //Act
       Restaurant actual = Restaurant.FindRestaurant(newRestaurant.GetRestaurantName());
-    
+
       //Assert
       Assert.AreEqual(expected, actual);
     }
+
+
   }
 }
