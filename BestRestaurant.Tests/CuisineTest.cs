@@ -101,7 +101,7 @@ namespace BestRestaurant.Tests
     }
 
     [TestMethod]
-    public void FindCuisine_GetsCuisineAndAssociatedRestaurants_Cuisine()
+    public void FindCuisineByName_GetsCuisineAndAssociatedRestaurants_Cuisine()
     {
       //Arrange
       Cuisine newCuisine = new Cuisine("mexican", 1);
@@ -111,11 +111,26 @@ namespace BestRestaurant.Tests
       Console.WriteLine("EXPECTED ========= {0} {1} ", expected.GetId(), expected.GetCuisineName());
 
       //Act
-      Cuisine actual = Cuisine.FindCuisine(newCuisine.GetCuisineName());
+      Cuisine actual = Cuisine.FindCuisineByName(newCuisine.GetCuisineName());
       Console.WriteLine("ACTUAL ========= {0} {1} ", actual.GetId(), actual.GetCuisineName());
       //Assert
       Assert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public void FindCuisineByName_CorrectlyFindsCuisinesThatExist_Cuisine()
+    {
+      //Arrange
+      Cuisine newCuisine = new Cuisine("mexican");
+      newCuisine.Save();
+      //Act
+      Cuisine expected = null;
+      Cuisine actual = Cuisine.FindCuisineByName("italian");
+
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
+
 
   }
 }

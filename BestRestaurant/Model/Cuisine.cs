@@ -138,11 +138,13 @@ namespace BestRestaurant.Models
       cmd.ExecuteNonQuery();
       conn.Close();
     }
-    public static Cuisine FindCuisine(string cuisineName)
+    //This method will return the cuisine that is found OR return null
+    public static Cuisine FindCuisineByName(string cuisineName)
     {
+      //maybe format cuisineName to a standard convention?
+
       MySqlConnection conn = DB.Connection() as MySqlConnection;
       conn.Open();
-
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM  cuisines WHERE cuisine_name = @cuisine_name;";
 
@@ -152,15 +154,26 @@ namespace BestRestaurant.Models
       cmd.Parameters.Add(cuisineNameParameter);
 
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-      Cuisine foundCuisine = new Cuisine("");
+
+      bool cuisineExists = false;
+
+      int foundCuisineId = 0;
+      string foundCuisineName = "";
+
       while(rdr.Read())
       {
-        int foundCuisineId = rdr.GetInt32(0);
-        string foundCuisineName = rdr.GetString(1);
-        foundCuisine = new Cuisine(foundCuisineName, foundCuisineId);
+        foundCuisineId = rdr.GetInt32(0);
+        foundCuisineName = rdr.GetString(1);
+        cuisineExists = true;
+      }
+      if (cuisineExists)
+      {
+        Cuisine foundCuisine = new Cuisine(foundCuisineName, foundCuisineId);
+        conn.Close();
+        return foundCuisine;
       }
       conn.Close();
-      return foundCuisine;
+      return null;
     }
   }
 }

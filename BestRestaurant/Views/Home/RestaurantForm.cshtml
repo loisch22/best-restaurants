@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Add a Restaurant</h1>
+
+<form action="/RestaurantList" method="post" class="form-group">
+  <label for="restaurantName">Restaurant Name:</label>
+  <input type="text" class="form-control" name="restaurantName">
+  <label for="location">Location:</label>
+  <input type="text" class="form-control" name="location">
+  <label for="cuisineName">Cuisine Type:</label>
+  <input type="text" class="form-control" name="cuisineName">
+
+  <button type="submit" class="btn btn-lg btn-default">Add Restaurant</button>
+</form>
+<a href="/"><button type="button" class="btn btn-info">Home</button></a>

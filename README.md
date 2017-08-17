@@ -28,6 +28,8 @@ _This program is for an Epicodus project. A user can add a restaurant by the typ
 | 16. User can search a specific `restaurant` and view its restaurant details | Search: "Chipotle" | View: `Chipotle Details` page |
 | 17. User can search a specific `cuisine` and view the list of restaurants for that cuisine | Search: "Mexican" | View: `Mexican Restaurants` list |
 | 18. If there is no match for the search term, display an alert message "We could not find a match for your search term. | > Input: `Cancel`| > Output: Remain `HOME` page  |
+| 19. If  the `search term` first character matches, it should return as a complete match. | > Input: `Cancel`| > Output: Remain `HOME` page  |
+| 20. Make a `join` statement. | > Input: `Cancel`| > Output: Remain `HOME` page  |
 
 ## Wishilist:
 Rating/Review, cuisine/restaurant count, price range ($ - $$ - $$$),

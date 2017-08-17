@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+
+<div>
+  <ul>
+    @foreach(var restaurant in Model)
+    {
+      <li>@restaurant.GetRestaurantName()</li>
+      <li>@restaurant.GetLocation()</li>
+      <li>@restaurant.GetCuisineId()</li>
+
+    }
+  </ul>
+</div>
+<a href="/"><button type="button" class="btn btn-info">Home</button></a>

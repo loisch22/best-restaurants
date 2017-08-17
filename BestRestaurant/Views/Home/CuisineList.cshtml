@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>List of Cuisine</h1>
+
+<ul>
+  @foreach (var cuisine in Model)
+  {
+    <a href="/"><li>@cuisine.GetCuisineName()</li></a>
+  }
+</ul>
+<a href="/"><button type="button" class="btn btn-info">Home</button></a>
