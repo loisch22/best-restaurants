@@ -56,7 +56,6 @@ namespace BestRestaurant.Tests
       Restaurant expected = newRestaurant1;
       //Act
       Restaurant actual = Restaurant.FindRestaurant("Chipotle");
-      Console.WriteLine("ACTUAL ID {0} ACTUAL NAME: {1} ACTUAL LOCATION {2} ACTUAL CUISINE ID {3}", actual.GetId(), actual.GetRestaurantName(), actual.GetLocation(), actual.GetCuisineId());
       //Assert
       Assert.AreEqual(expected, actual);
     }
@@ -68,10 +67,25 @@ namespace BestRestaurant.Tests
       Restaurant newRestaurant = new Restaurant("Chipotle", "Seattle", 1);
       newRestaurant.Save();
       Restaurant.DeleteAll();
-      
+
       int expected = 0;
       //Act
       int actual = Restaurant.GetAllRestaurants().Count;
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
+    [TestMethod]
+    public void DeleteCuisineRestaurants_DeletesAllRestaurantsOfCuisine_Void()
+    {
+      //Arrange
+      Restaurant newRestaurant = new Restaurant("Chipotle", "Seattle", 1, 1);
+      int cuisineId = newRestaurant.GetId();
+      newRestaurant.Save();
+      Restaurant.DeleteCuisineRestaurants(cuisineId);
+
+      int expected = 0;
+      //Act
+      int actual = Restaurant.GetRestaurantsForCuisine(cuisineId).Count;
       //Assert
       Assert.AreEqual(expected, actual);
     }

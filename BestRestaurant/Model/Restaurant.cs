@@ -166,7 +166,21 @@ namespace BestRestaurant.Models
       return newRestaurant;
     }
 
+    public static void DeleteCuisineRestaurants(int cuisineId)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
 
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM restaurants WHERE cuisine_id = @cuisineId;";
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@cuisineId";
+      cuisineIdParameter.Value = cuisineId;
+      cmd.Parameters.Add(cuisineIdParameter);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
     public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection() as MySqlConnection;
