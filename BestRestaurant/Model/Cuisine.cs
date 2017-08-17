@@ -44,6 +44,26 @@ namespace BestRestaurant.Models
       return this.GetCuisineName().GetHashCode();
     }
 
+    public static void DeleteCuisine(int cuisineId)
+    {
+
+      Restaurant.DeleteCuisineRestaurants(cuisineId);
+
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM cuisines WHERE id = @id;";
+
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@id";
+      cuisineIdParameter.Value = cuisineId;
+      cmd.Parameters.Add(cuisineIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
+
     public static void DeleteAll()
     {
       Restaurant.DeleteAll();

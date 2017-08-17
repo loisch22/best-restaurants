@@ -45,26 +45,47 @@ namespace BestRestaurant.Tests
     }
 
 
-      [TestMethod]
-      public void DeleteAllCuisines_DeletesAllCuisinesAndAllRestaurants_Void()
-      {
-        //Arrange
-        Cuisine newCuisine1 = new Cuisine("mexican");
-        newCuisine1.Save();
+    [TestMethod]
+    public void DeleteAllCuisines_DeletesAllCuisinesAndAllRestaurants_Void()
+    {
+      //Arrange
+      Cuisine newCuisine1 = new Cuisine("mexican");
+      newCuisine1.Save();
 
-        Restaurant newRestaurant1 = new Restaurant("Chipotle", "Seattle", 1, 1);
-        newRestaurant1.Save();
-        Cuisine.DeleteAll();
-        
-        //Act
-        int actualRestaurants = Restaurant.GetAllRestaurants().Count;
-        int actualCuisine = Cuisine.GetAllCuisines().Count;
+      Restaurant newRestaurant1 = new Restaurant("Chipotle", "Seattle", 1, 1);
+      newRestaurant1.Save();
+      Cuisine.DeleteAll();
 
-        bool expected = true;
-        bool actual = (0 == actualRestaurants && 0 == actualCuisine);
-        //Assert
-        Assert.AreEqual(expected, actual);
-      }
+      //Act
+      int actualRestaurants = Restaurant.GetAllRestaurants().Count;
+      int actualCuisine = Cuisine.GetAllCuisines().Count;
+
+      bool expected = true;
+      bool actual = (0 == actualRestaurants && 0 == actualCuisine);
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void DeleteCuisine_DeletesASpecificCuisine_Void()
+    {
+      Cuisine newCuisine1 = new Cuisine("mexican");
+      Cuisine newCuisine2 = new Cuisine("chinese");
+      newCuisine1.Save();
+      newCuisine2.Save();
+
+      Restaurant newRestaurant1 = new Restaurant("Chipotle", "Seattle", 1, 1);
+      Restaurant newRestaurant2 = new Restaurant("Chiangs", "Northgate", 2, 2);
+      newRestaurant1.Save();
+      newRestaurant2.Save();
+
+      Cuisine.DeleteCuisine(newCuisine1.GetId());
+
+      bool expected = false;
+      bool actual = Cuisine.GetAllCuisines().Contains(newCuisine1) && Restaurant.GetAllRestaurants().Contains(newRestaurant1);
+
+      Assert.AreEqual(expected, actual);
+    }
 
 
   }
