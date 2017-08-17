@@ -45,5 +45,27 @@ namespace BestRestaurant.Tests
     }
 
 
+      [TestMethod]
+      public void DeleteAllCuisines_DeletesAllCuisinesAndAllRestaurants_Void()
+      {
+        //Arrange
+        Cuisine newCuisine1 = new Cuisine("mexican");
+        newCuisine1.Save();
+
+        Restaurant newRestaurant1 = new Restaurant("Chipotle", "Seattle", 1, 1);
+        newRestaurant1.Save();
+        Cuisine.DeleteAll();
+        
+        //Act
+        int actualRestaurants = Restaurant.GetAllRestaurants().Count;
+        int actualCuisine = Cuisine.GetAllCuisines().Count;
+
+        bool expected = true;
+        bool actual = (0 == actualRestaurants && 0 == actualCuisine);
+        //Assert
+        Assert.AreEqual(expected, actual);
+      }
+
+
   }
 }

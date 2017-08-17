@@ -46,6 +46,7 @@ namespace BestRestaurant.Models
 
     public static void DeleteAll()
     {
+      Restaurant.DeleteAll();
       MySqlConnection conn = DB.Connection() as MySqlConnection;
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
