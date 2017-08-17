@@ -139,6 +139,37 @@ namespace BestRestaurant.Models
       return restaurants;
     }
 
+    public static void DeleteCuisineRestaurants(int cuisineId)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM restaurants WHERE cuisine_id = @cuisine_id;";
+
+      MySqlParameter cuisineIdParameter = new MySqlParameter();
+      cuisineIdParameter.ParameterName = "@cuisine_id";
+      cuisineIdParameter.Value = cuisineId;
+      cmd.Parameters.Add(cuisineIdParameter);
+
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+
+    public static void DeleteRestaurant(string restaurantName)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM restaurants WHERE restaurant_name = @restaurant_name;";
+
+      MySqlParameter restaurantNameParameter = new MySqlParameter();
+      restaurantNameParameter.ParameterName = "@restaurant_name";
+      restaurantNameParameter.Value = restaurantName;
+      cmd.Parameters.Add(restaurantNameParameter);
+
+      cmd.ExecuteNonQuery();
+    }
+
     public static Restaurant FindRestaurant(string searchName)
     {
       MySqlConnection conn = DB.Connection() as MySqlConnection;
@@ -173,6 +204,7 @@ namespace BestRestaurant.Models
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"TRUNCATE TABLE restaurants;";
+
       cmd.ExecuteNonQuery();
       conn.Close();
     }
