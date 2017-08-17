@@ -44,6 +44,32 @@ namespace BestRestaurant.Tests
       CollectionAssert.AreEqual(expected, actual);
     }
 
+    [TestMethod]
+    public void DeleteAllCuisines_DeletesAllCuisines_Void()
+    {
+      Cuisine newCuisine = new Cuisine("mexican");
+      newCuisine.Save();
+      Cuisine.DeleteAll();
 
+      int expected = 0;
+      int actual = Cuisine.GetAllCuisines().Count;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void DeleteCuisine_DeletesSpecificCuisine_Void()
+    {
+      Cuisine newCuisine1 = new Cuisine("mexican", 1);
+      Cuisine newCuisine2 = new Cuisine("thai" , 2);
+      newCuisine1.Save();
+      newCuisine2.Save();
+      Cuisine.DeleteCuisine(1);
+
+      int expected = 1;
+      int actual = Cuisine.GetAllCuisines().Count;
+
+      Assert.AreEqual(expected, actual);
+    }
   }
 }
