@@ -110,6 +110,7 @@ namespace BestRestaurant.Models
 
       return restaurants;
     }
+
     public static List<Restaurant> GetRestaurantsForCuisine (int searchId)
     {
       List<Restaurant> restaurants = new List<Restaurant>();

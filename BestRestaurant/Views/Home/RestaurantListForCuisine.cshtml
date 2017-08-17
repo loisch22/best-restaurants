@@ -1,0 +1,10 @@
+
+
+
+@{
+  Layout = "_Layout";
+}
+@foreach(var restaurant in Model)
+{
+  <p>@restaurant.GetRestaurantName()</p>
+}

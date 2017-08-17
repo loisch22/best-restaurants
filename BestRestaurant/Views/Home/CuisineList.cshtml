@@ -5,9 +5,13 @@
 <h1>List of Cuisine</h1>
 
 <ul>
-  @foreach (var cuisine in Model)
+  @foreach (Cuisine cuisine in Model)
   {
-    <a href="/"><li>@cuisine.GetCuisineName()</li></a>
+    /*<a href="/CuisineRestaurants/@cuisine.GetId()/"><li>@cuisine.GetCuisineName()</li></a>*/
+    @Html.ActionLink(@cuisine.GetCuisineName(), "RestaurantListForCuisine", {id = @cuisine.GetCuisineId()})
   }
 </ul>
+
+<a href="/DeleteAllCuisines"><button type="button" class="btn btn-danger">Delete All Cuisines</button></a>
+<a href="/CuisineForm"><button type="button" class="btn btn-success">Add Cuisine</button></a>
 <a href="/"><button type="button" class="btn btn-info">Home</button></a>

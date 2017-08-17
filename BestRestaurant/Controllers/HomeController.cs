@@ -20,15 +20,27 @@ namespace BestRestaurant.Controllers
     }
 
     [HttpPost("/CuisineList")]
-    public ActionResult CuisineList()
+    public ActionResult AddCuisineList()
     {
       Cuisine newCuisine = new Cuisine(Request.Form["cuisineName"]);
       newCuisine.Save();
+
+      // List<Cuisine> allCuisines = Cuisine.GetAllCuisines();
+      //
+      return RedirectToAction("CuisineList", "Home");
+    }
+
+    [HttpGet("/ShowAllCuisineList")]
+    public ActionResult CuisineList()
+    {
+      // Cuisine newCuisine = new Cuisine(Request.Form["cuisineName"]);
+      // newCuisine.Save();
 
       List<Cuisine> allCuisines = Cuisine.GetAllCuisines();
 
       return View(allCuisines);
     }
+
 
     [HttpGet("/RestaurantForm")]
     public ActionResult RestaurantForm()
@@ -37,7 +49,7 @@ namespace BestRestaurant.Controllers
     }
 
     [HttpPost("/RestaurantList")]
-    public ActionResult RestaurantList()
+    public ActionResult AddToRestaurantList()
     {
       // Restaurant.DeleteAll();
       // Cuisine.DeleteAll();
@@ -56,9 +68,44 @@ namespace BestRestaurant.Controllers
       Restaurant newRestaurant = new Restaurant(name, location, cuisineId);
       newRestaurant.Save();
 
-      List<Restaurant> restaurants = Restaurant.GetAllRestaurants();
+      return RedirectToAction("RestaurantList", "Home");
+    }
 
+    [HttpGet("/ShowAllRestaurants")]
+    public ActionResult RestaurantList()
+    {
+      // Cuisine newCuisine = new Cuisine(Request.Form["cuisineName"]);
+      // newCuisine.Save();
+
+      List<Restaurant> allRestaurants = Restaurant.GetAllRestaurants();
+
+      return View(allRestaurants);
+    }
+
+    [HttpGet("/DeleteAllCuisines")]
+    public ActionResult DeleteAllCuisines()
+    {
+      Cuisine.DeleteAll();
+
+      return View("Index");
+    }
+
+    [HttpGet("/DeleteAllRestaurants")]
+    public ActionResult DeleteAllRestaurants()
+    {
+      Restaurant.DeleteAll();
+
+      return View("Index");
+    }
+
+    [HttpPost("/CuisineRestaurants/{id}/")]
+    public ActionResult RestaurantListForCuisine(int id)
+    {
+      // int searchId = Cuisine.GetId();
+      List<Restaurant> restaurants = Restaurant.GetRestaurantsForCuisine(id);
       return View(restaurants);
     }
+
+
   }
 }
