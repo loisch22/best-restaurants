@@ -36,7 +36,8 @@ namespace BestRestaurant.Models
       return _cuisineId;
     }
 
-    public override bool Equals(System.Object otherRestaurant)
+
+    public override bool Equals(Object otherRestaurant)
     {
       if (!(otherRestaurant is Restaurant))
       {
@@ -177,6 +178,22 @@ namespace BestRestaurant.Models
       cuisineIdParameter.ParameterName = "@cuisineId";
       cuisineIdParameter.Value = cuisineId;
       cmd.Parameters.Add(cuisineIdParameter);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
+    public static void DeleteRestaurant(int restaurantId)
+    {
+      MySqlConnection conn = DB.Connection() as MySqlConnection;
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM restaurants WHERE id = @id;";
+
+      MySqlParameter restaurantIdParameter = new MySqlParameter();
+      restaurantIdParameter.ParameterName = "@id";
+      restaurantIdParameter.Value = restaurantId;
+      cmd.Parameters.Add(restaurantIdParameter);
+
       cmd.ExecuteNonQuery();
 
       conn.Close();

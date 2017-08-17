@@ -89,5 +89,25 @@ namespace BestRestaurant.Tests
       //Assert
       Assert.AreEqual(expected, actual);
     }
+    [TestMethod]
+    public void DeleteRestaurant_DeletesRestaurant_Void()
+    {
+      //Arrange
+      Restaurant newRestaurant = new Restaurant("Chipotle", "Seattle", 1, 1);
+      newRestaurant.Save();
+      Restaurant newRestaurant2 = new Restaurant("Chipotle", "Seattle", 1, 1);
+      newRestaurant2.Save();
+      Console.WriteLine("NUMBER OF RESTRANTS OBJECTS: " + Restaurant.GetAllRestaurants().Count);
+
+      int restaurantId = newRestaurant.GetId();
+      string restaurantName = newRestaurant.GetRestaurantName();
+      Restaurant.DeleteRestaurant(restaurantId);
+
+      bool expected = false;
+      //Act
+      bool actual = Restaurant.GetAllRestaurants().Contains(newRestaurant);
+      //Assert
+      Assert.AreEqual(expected, actual);
+    }
   }
 }
